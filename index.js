@@ -7,7 +7,9 @@ const bodyPersar = require('body-parser');
 const cors = require('cors');
 const { ObjectId } = require('mongodb').ObjectId;
 
-const uri = "mongodb+srv://valunteer-network:tHfPRVwGEGNRlrKR@cluster0.mde5k.mongodb.net/valunteerNnetwork?retryWrites=true&w=majority";
+const user = process.env.DB_HOST;
+const pass = process.env.DB_PASS;
+const uri = `mongodb+srv://${user}:${pass}@cluster0.mde5k.mongodb.net/valunteerNnetwork?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  });
 
 app.use(cors());
