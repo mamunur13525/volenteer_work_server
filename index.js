@@ -8,7 +8,7 @@ const cors = require('cors');
 const { ObjectId } = require('mongodb').ObjectId;
 require('dotenv').config()
 
-const uri = "mongodb+srv://valunteer-network:tHfPRVwGEGNRlrKR@cluster0.mde5k.mongodb.net/registerValenteer?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${DB_HOST}:${DB_PASS}@cluster0.mde5k.mongodb.net/${DB_USER}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  });
 
 
