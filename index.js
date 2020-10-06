@@ -6,11 +6,11 @@ const MongoClient = require('mongodb').MongoClient;
 const bodyPersar = require('body-parser');
 const cors = require('cors');
 const { ObjectId } = require('mongodb').ObjectId;
+require('dotenv').config()
 
-const user = process.env.DB_HOST;
-const pass = process.env.DB_PASS;
-const uri = `mongodb+srv://${user}:${pass}@cluster0.mde5k.mongodb.net/valunteerNnetwork?retryWrites=true&w=majority`;
+const uri = "mongodb+srv://valunteer-network:tHfPRVwGEGNRlrKR@cluster0.mde5k.mongodb.net/registerValenteer?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true  });
+
 
 app.use(cors());
 app.use(bodyPersar.json());
@@ -19,32 +19,43 @@ app.use(bodyPersar.json());
 
 /* Register Collection Database */
 client.connect(err => {
-  const registerCollection = client.db("valunteerNnetwork").collection("registerValunteer");
+  const registerCollection = client.db("valunteerNnetwork").collection("registerValenteer");
     
+  
   app.post('/addregister',(req, res)=>{
     const register = req.body;
     registerCollection.insertOne(register)
     .then(result => {
       res.send(result)
+ 
      
     })
 
   })
 
+
+ 
+
   app.get('/registerUser/:email',(req, res)=>{
-  
+  console.log(req.params.email)
     registerCollection.find({email:req.params.email})
     .toArray((err,documents)=>{
       res.send(documents)
+     
     })
   })
+
+
   app.delete('/deleteregister/:id',(req, res)=>{
     registerCollection.deleteOne({_id: ObjectId(req.params.id)})
       .then(result => {
-        res.send(result.deleteCount> 0)
+        res.send(result.deletedCount> 0)
+        
       })
    
   })
+
+ 
 
 
 });
@@ -55,12 +66,11 @@ client.connect(err => {
     const valunteerCollection = client.db("valunteerNnetwork").collection("allValunteer");
       
       app.get('/allValunteer',(req, res) => {
+      
           valunteerCollection.find({})
           .toArray((err, documents)=>{
               res.send(documents)
-            
-           
-          })
+           })
       })
   
   });
