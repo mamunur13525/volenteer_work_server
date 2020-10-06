@@ -21,7 +21,9 @@ app.use(bodyPersar.json());
 client.connect(err => {
   const registerCollection = client.db("valunteerNnetwork").collection("registerValenteer");
     
-  
+  app.get('/',(req, res)=>{
+    res.send('heroku is working')
+  })
   app.post('/addregister',(req, res)=>{
     const register = req.body;
     registerCollection.insertOne(register)
