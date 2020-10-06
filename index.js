@@ -37,7 +37,7 @@ client.connect(err => {
  
 
   app.get('/registerUser/:email',(req, res)=>{
-  console.log(req.params.email)
+ 
     registerCollection.find({email:req.params.email})
     .toArray((err,documents)=>{
       res.send(documents)
@@ -75,9 +75,6 @@ client.connect(err => {
   
   });
   
-app.get('/',(req, res)=>{
-    res.send('this co')
-})
 
 
 
